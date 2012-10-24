@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
       user.nickname     = auth["info"]["nickname"]
       user.gravatar_id  = auth["extra"]["gravatar_id"]
     end
+  end
 end
