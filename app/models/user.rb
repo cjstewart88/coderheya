@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
 
   def self.create_with_omniauth(auth)
     self.find_or_create_by_uid(
-      :uid          => auth["extra"]["id"],
+      :uid          => auth["id"],
       :provider     => auth["provider"],
-      :nickname     => auth["extra"]["login"],
-      :gravatar_id  => auth["extra"]["gravatar_id"]
+      :nickname     => auth["nickname"],
+      :gravatar_id  => auth["gravatar_id"]
     )
   end
 end
