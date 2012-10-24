@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Coder Heya</title>
+    <%= stylesheet_link_tag    "application", "http://fonts.googleapis.com/css?family=Open+Sans:400,800,700" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="main-wrapper">
+      <div id="inner-wrapper">
+        <header>
+          <h1 id="logo">Coder Heya</h1>
+
+          <aside id="current-user">
+            <% if current_user %>
+              Welcome, <%= current_user.name %>!
+              <%= link_to "Sign Out", signout_path %>
+            <% else %>  
+              <a class="btn-auth btn-github large" href="/auth/github">Sign in with <b>Github</b></a>
+            <% end %>
+          </aside>
+        </header>
+        
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>
