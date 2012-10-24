@@ -2,9 +2,10 @@ class User < ActiveRecord::Base
   attr_accessible :nickname, :provider, :uid, :gravatar_id
 
   def self.create_with_omniauth(auth)
-    auth.each do |k|
-     puts k
-    end
+    puts auth["extra"]
+    puts auth["info"]
+      
+    
     create! do | user |
       user.provider     = auth["provider"]
       user.uid          = auth["extra"]["id"]
