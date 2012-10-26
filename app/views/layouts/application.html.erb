@@ -14,8 +14,11 @@
 
           <aside id="current-user">
             <% if @current_user %>
-              Welcome, <%= @current_user.nickname %>!
-              <%= link_to "Sign Out", signout_path %>
+              <a href='/<%= @current_user.nickname %>'>
+                <img src="http://www.gravatar.com/avatar/<%= @current_user.gravatar_id %>" id="current-user-profile-image">              
+                <%= @current_user.nickname %>
+              </a> - 
+              <%= link_to "sign out", signout_path %>
             <% else %>  
               <a class="btn-auth btn-github large" href="/auth/github">Sign in with <b>Github</b></a>
             <% end %>
