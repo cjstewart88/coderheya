@@ -17,6 +17,42 @@ a {
   }
 }
 
+h1, h2, h3, h4 {
+  margin: 0 0 15px;
+}
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+input, label, textarea, .input-help {
+  display: block;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input {
+  font-family: 'Open Sans', sans-serif;
+}
+
+input[type=text] {
+  width: 350px;  
+  padding: 10px 12px;
+  border: solid 1px #CCC;
+  font-size: 14px;
+  @include border-radius(3px);
+}
+
+.input-help {
+  font-size: 10px;
+  list-style-type: none;
+  padding: 0;
+}
+
 input[type=button], input[type=submit], a.button { 
   font-size: 12px;
   font-weight: bold;
@@ -28,7 +64,7 @@ input[type=button], input[type=submit], a.button {
   color: #ffffff;
   cursor: pointer;
   
-  &:hover {
+  &:hover, &:focus {
     background: #00C481;
   }
   
@@ -39,8 +75,34 @@ input[type=button], input[type=submit], a.button {
   
   &.small {
     padding: 2px 10px;
-    font-size: 10px;
+    font-size: 12px;
   }
+  
+  &.in-progress {
+    background: #464646;
+  }
+}
+
+div.tagsinput {
+  @include border-radius(3px);
+  
+  span.tag {
+    padding: 3px 10px;
+    @include border-radius(3px);
+    border: none;
+    background: #008381;
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 12px;
+  
+    a {
+      margin-left: 5px;
+    }
+  }
+}
+
+form input[type=button], form input[type=submit] {
+  margin-top: 20px;
 }
 
 #main-wrapper {
@@ -53,8 +115,16 @@ input[type=button], input[type=submit], a.button {
   }
 }
 
-header, section {
+header, section, aside {
   margin-bottom: 20px;
+}
+
+aside {
+  padding: 10px 20px;
+}
+
+section {
+  padding: 10px 0px;
 }
 
 header {
@@ -65,6 +135,10 @@ header {
     float: left;
     line-height: 60px;
     font-size: 30px;
+    
+    a {
+      color: #000;
+    }
   }
   
   #current-user {
@@ -80,8 +154,14 @@ header {
   }
 }
 
-section {
-  padding: 10px 20px;
+#notice {
+  @include border-radius(3px);
+  background: #F9DF6A;
+  display: none;
+  
+  &.show-notice {
+    display: block;
+  }
 }
 
 #contribute {
@@ -96,13 +176,51 @@ section {
 }
 
 #guides-and-references {
-  ol, ul {
-    margin: 0px;
-    padding: 0px;
-    list-style-type: none;
-  }
-  
-  ul li {
-    display: inline-block;
+  .link-summary {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: dashed 1px #CCC;
+    
+    &:last-child {
+     border-bottom: none; 
+    }
+    
+    .link {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .link-details {
+      height: 25px;
+      line-height: 25px;
+      
+      .time-ago-and-submitter {
+        float: right;
+        font-size: 12px;
+        
+        .submitter-profile-image {
+          width: 20px;
+          position: absolute;
+          margin-top: 3px;
+          margin-left: 2px;
+          @include border-radius(3px);
+        }
+        
+        .submitter-nickname {
+          margin-left: 25px;
+        }
+      }
+
+      .tags {
+        float: left;
+        margin: 0px;
+        padding: 0px;
+        list-style-type: none;
+
+        .tag {
+          display: inline-block;
+        }
+      }
+    }
   }
 }

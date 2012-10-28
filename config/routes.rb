@@ -3,6 +3,8 @@ Coderheya::Application.routes.draw do
 
   match '/auth/:provider/callback', to: 'sessions#create'
   match '/signout' => 'sessions#destroy', :as => :signout
-  
-  match '/submit' => 'link#create'
+
+  get '/tag/:name' => 'application#index'
+
+  resources :links, :only => [:new, :create]
 end

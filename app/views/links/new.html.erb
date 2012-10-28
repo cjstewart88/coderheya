@@ -1,0 +1,92 @@
+<section>
+  <h2>Submit a Guide/Reference</h2>
+
+  <%= form_for @link, :url => { :action => "create" }, :html => { :class => "" } do | f | %>
+    <%= label_tag :title, 'Title:' %>
+    <%= f.text_field :title %>
+    <ul class='input-help'>
+      <li>- Be descriptive.</li>
+      <li>- 80 character maximum.</li>
+      <li>- ex: 'Learning JavaScript Design Patterns'</li>
+    </ul>
+    
+    <%= label_tag :url, 'URL:' %>
+    <%= f.text_field :url %>
+    <ul class='input-help'>
+      <li>- ex: http://addyosmani.com/resources/essentialjsdesignpatterns/book/</li>
+    </ul>
+    
+    <%= label_tag :tags, 'Tags:' %>
+    <%= f.text_field :tags, :value => '' %>
+    <ul class='input-help'>
+      <li>- At least one tag is required.</li>
+      <li>- 25 character maximum per tag.</li>
+      <li>- ex: javascript, js</li>
+    </ul>
+    
+    <%= f.submit "Submit", :id => 'submit-link', :class => 'large' %>
+  <% end %>
+
+  <script>
+    function newLinkError (error) {
+      $('#notice').text(error)
+                  .addClass('show-notice');
+
+      $("#submit-link").removeClass('in-progress').attr('disabled', false);
+    }
+    
+    $(document).ready(function () {
+      $('#link_tags').tagsInput({
+         'height':'100px',
+         'width':'363px',
+         'interactive': true,
+         'defaultText': 'add tag',
+         'removeWithBackspace' : true,
+         'minChars' : 0,
+         'maxChars' : 25,
+         'placeholderColor' : '#666666'
+      });
+      
+      $('#new_link').submit(function () {
+        $("#submit-link").addClass('in-progress').attr('disabled', true);
+      
+        var newLink = $('#link_url').val().trim();
+        var newLinkTitle = $('#link_title').val().trim();
+        
+        if (newLink == "") {
+          newLinkError("Please enter a valid URL for the Guide/Reference you're wanting to submit.");
+          return false;
+        }
+        else if (newLinkTitle == "") {
+          newLinkError("Please enter a title for the Guide/Reference you're wanting to submit.");
+          return false;
+        }
+        else if (newLinkTitle.length > 80) {
+          newLinkError("Guide/Reference titles must be under 80 characters.");
+          return false;
+        }
+        else if ($('#link_tags').val() == "") {
+          newLinkError("At least one tag is required.");
+          return false;
+        }
+        else {
+          // If the url doesn't have http:// at the beginning, add it.
+          if (newLink.match(/^http:\/\//) == null) {
+            // If the url has www. at the beginning, remove it.
+            if (newLink.match(/^www./) != null) {
+              newLink = newLink.replace(/^www./, '');
+            }
+          
+            newLink = 'http://' + newLink;
+          }
+          else {
+            newLink = newLink.replace(/www./, '');  
+          }
+          
+          $('#link_url').val(newLink);
+          $('#link_title').val(newLinkTitle.trim());
+        }
+      });
+    });
+  </script>
+</section>

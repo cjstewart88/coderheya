@@ -1,16 +1,26 @@
-<section id="contribute">
+<aside id="contribute">
   Know of a good Guide or Reference, help the community out by sharing it!
-  <input type="button" id="contribute-button" class="large" value="Submit a Guide/Reference"/>
-</section>
+  <a href="/links/new" id="contribute-button" class="button large">Submit a Guide/Reference</a>
+</aside>
 
 <section id="guides-and-references">
-  <ol>
-    <li>
-      <a href="http://www.linktoreference.com/">Title of link here</a>
-      <ul class="tags">
-        <li><a href="/tags/" class="button small">Ruby</a></li>
-        <li><a href="/tags/" class="button small">Ruby on Rails</a></li>
-      </ul>
-    </li>
-  </ol>
+  <% links(params[:name] || :all).each do | link | %>
+    <div class="link-summary">
+      <a href="<%= link[:url] %>" target="_blank" class="link"><%= link[:title] %></a>
+      
+      <div class="link-details">
+        <span class="time-ago-and-submitter">
+          <%= time_ago_in_words(link[:created_at]) %> ago by 
+          <img src="http://www.gravatar.com/avatar/<%= link.user[:gravatar_id] %>" class="submitter-profile-image"> 
+          <span class="submitter-nickname"><%= link.user[:nickname] %></span>
+        </span>
+        
+        <ul class="tags">
+          <% link.tag_list.each do | tag | %>
+            <li class="tag"><a href="/tag/<%= tag %>" class="button small"><%= tag %></a></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
 </section>
