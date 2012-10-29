@@ -6,10 +6,6 @@ gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
 gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'will_paginate', '~> 3.0'
 
-group :assets do
-  gem 'sass-rails', '~> 3.2.3'
-  gem 'compass-rails'
-  gem 'uglifier', '>= 1.0.3'
-end
-
+gem 'sass-rails'
+gem 'compass-rails'
 gem 'jquery-rails'
