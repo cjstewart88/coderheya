@@ -17,7 +17,7 @@
     </ul>
     
     <%= label_tag :tag, 'Tag:' %>
-    <%= select_tag("tag-picker", options_for_select(['', 'Bash', 'Java','C','C++','C#','Perl','JavaScript','Visual Basic','PHP','Ruby','Python','Ruby on Rails','HTML','CSS','MySQL','Postgres','Node.js','Lisp','jQuery','ASP.net','Git','django','MongoDB']), :name => 'link[tag]') %>
+    <%= select_tag("tag-picker", options_for_select([''] + POSSIBLE_TAGS), :name => 'link[tag]') %>
     <ul class='input-help'>
       <li>- At least one tag is required.</li>
     </ul>
