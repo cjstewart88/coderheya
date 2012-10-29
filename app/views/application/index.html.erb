@@ -1,26 +1,145 @@
-<aside id="contribute">
-  Know of a good Guide or Reference, help the community out by sharing it!
-  <a href="/links/new" id="contribute-button" class="button large">Submit a Guide/Reference</a>
+<aside id="guides-and-references-header">
+  <div id="filter-by-tag">
+    Filter By Tag: <%= select_tag("tag-filter", options_for_select(['', 'all'] + Link.tag_counts_on(:tags), params[:tag] || nil)) %>
+  </div>
+  
+  <% if @current_user %>
+    <a href="/links/new" id="contribute-button" class="button">Submit a Guide/Reference</a>
+  <% end %>
 </aside>
 
 <section id="guides-and-references">
-  <% links(params[:name] || :all).each do | link | %>
-    <div class="link-summary">
-      <a href="<%= link[:url] %>" target="_blank" class="link"><%= link[:title] %></a>
+  <% if params[:nickname] %>
+    <h2><%= params[:nickname] %>'s Favorites</h2>
+  <% end %>
+  
+  <% if @links.count != 0 %>
+    <% @links.each do | link | %>
+      <div class="link-summary">
+        <span class="favorite <%= (!@current_user || @current_user.favorites.select { | k | k[:link_id] == link[:id] }.empty? ? 'icon-star-empty'.html_safe : 'is-favorite icon-star'.html_safe) %>" data-link-id="<%= link[:id] %>"></span> 
       
-      <div class="link-details">
-        <span class="time-ago-and-submitter">
-          <%= time_ago_in_words(link[:created_at]) %> ago by 
-          <img src="http://www.gravatar.com/avatar/<%= link.user[:gravatar_id] %>" class="submitter-profile-image"> 
-          <span class="submitter-nickname"><%= link.user[:nickname] %></span>
-        </span>
+        <a href="<%= link[:url] %>" target="_blank" class="link"><%= link[:title] %></a>
+      
+        <div class="link-details">
+          <span class="time-ago-and-submitter">
+            <%= time_ago_in_words(link[:created_at]) %> ago by 
+            <a href='/users/<%= link.user[:nickname] %>'>
+              <img src="http://www.gravatar.com/avatar/<%= link.user[:gravatar_id] %>" class="submitter-profile-image"> 
+              <span class="submitter-nickname"><%= link.user[:nickname] %></span>
+            </a>
+          </span>
         
-        <ul class="tags">
-          <% link.tag_list.each do | tag | %>
-            <li class="tag"><a href="/tag/<%= tag %>" class="button small"><%= tag %></a></li>
-          <% end %>
-        </ul>
+          <ul class="tags">
+            <% link.tag_list.each do | tag | %>
+              <li class="tag"><a href="/tag/<%= tag %>" class="button small"><%= tag %></a></li>
+            <% end %>
+          </ul>
+        </div>
       </div>
-    </div>
+    <% end %>
+  
+    <%= will_paginate @links, :page_links => false %>
+  <% else %>
+    <% if params[:nickname] && params[:tag] %>
+      This user has 0 Favorites with the tag <%= params[:tag] %>.
+    <% elsif params[:nickname] %>
+      This user has 0 Favorites.
+    <% elsif params[:tag] %>
+      The tag "<%= params[:tag] %>" has 0 Guides/References.
+    <% else %>
+      There seems to be 0 Guides/References.
+    <% end %>
   <% end %>
 </section>
+
+<script>
+  $(document).ready(function () {
+    $('#tag-filter').select2({
+      placeholder: 'all',
+      width: '200px'
+    }).change(function () {  
+      var nickname  = '<%= params[:nickname] %>';
+      var tag       = $(this).val();
+      var location  = '/';
+      
+      if (nickname) {
+        location += 'users/' + nickname + (tag == 'all' ? '' : '/' + tag)
+      }
+      else {
+        location += (tag == 'all' ? '/' : '/tag/' + tag)
+      }
+      
+      window.location = location;
+    });
+    
+    <% if @current_user %>
+      $('.favorite').mouseover(function () {
+        if (!$(this).hasClass('is-favorite')) {
+          $(this).removeClass('icon-star-empty').addClass('icon-star');
+        }
+      }).mouseout(function () {
+        if (!$(this).hasClass('is-favorite')) {
+          $(this).addClass('icon-star-empty').removeClass('icon-star'); 
+        }
+      });
+    
+      $('.favorite').click(function () {
+        var starClicked = $(this);
+        
+        if (!starClicked.hasClass('disabled')) {
+          starClicked.addClass('disabled');
+        }
+        else {
+          return;
+        }
+        
+        var linkId = starClicked.data('link-id');
+        
+        if (starClicked.hasClass('is-favorite')) {
+          // remove favorite
+          $.ajax({
+            type: 'POST',
+            url: '/favorites/destroy',
+            data: {
+              "linkId": linkId
+            },
+            dataType: 'json',
+            success: function (data) {
+              if (data.success) {
+                starClicked.addClass('icon-star-empty').removeClass('is-favorite icon-star'); 
+                starClicked.removeClass('disabled');
+              }
+            }
+          });
+        }
+        else {
+          // add favorite
+          $.ajax({
+            type: 'POST',
+            url: '/favorites/create',
+            data: {
+              "linkId": linkId
+            },
+            dataType: 'json',
+            success: function (data) {
+              if (data.success) {
+                starClicked.removeClass('icon-star-empty').addClass('icon-star is-favorite');
+                starClicked.removeClass('disabled');
+              }
+            }
+          });
+        }
+      });
+    <% else %>
+      $('.favorite').tipsy({ 
+        delayIn: 500, 
+        fallback: 'You must sign in with Github to save favorites.',
+        gravity: $.fn.tipsy.autoWE
+      });
+
+      $('.favorite').mouseover(function () {
+        $(this).tipsy("show");
+      });
+    <% end %>
+  });
+</script>

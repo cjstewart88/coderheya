@@ -1,7 +1,9 @@
 class Link < ActiveRecord::Base
   attr_accessible :submitter, :title, :url
+  
   acts_as_taggable
   acts_as_taggable_on :tags
+  
   belongs_to :user
   
   def self.create(params)
@@ -13,5 +15,7 @@ class Link < ActiveRecord::Base
     
     new_link.tag_list = params[:tags].split(',')
     new_link.save
+    
+    new_link
   end
 end

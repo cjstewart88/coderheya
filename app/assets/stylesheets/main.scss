@@ -6,14 +6,15 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
 }
 
 a {
-  color: #008381;
+  color: #000;
   text-decoration: none;
   
   &:hover {
-   color: #00C481; 
+   color: #806A9C; 
   }
 }
 
@@ -21,88 +22,92 @@ h1, h2, h3, h4 {
   margin: 0 0 15px;
 }
 
-textarea:focus, input:focus{
-  outline: none;
-}
+form {
+  textarea:focus, input:focus{
+    outline: none;
+  }
 
-input, label, textarea, .input-help {
-  display: block;
-  margin-bottom: 10px;
-}
+  input, label, textarea, .input-help {
+    display: block;
+    margin-bottom: 10px;
+  }
 
-label {
-  display: block;
-  font-weight: bold;
-}
+  label {
+    display: block;
+    font-weight: bold;
+  }
 
-input {
-  font-family: 'Open Sans', sans-serif;
-}
+  input {
+    font-family: 'Open Sans', sans-serif;
+  }
 
-input[type=text] {
-  width: 350px;  
-  padding: 10px 12px;
-  border: solid 1px #CCC;
-  font-size: 14px;
-  @include border-radius(3px);
-}
+  input[type=text] {
+    width: 350px;  
+    padding: 10px 12px;
+    border: solid 1px #CCC;
+    font-size: 14px;
+    @include border-radius(3px);
+  }
 
-.input-help {
-  font-size: 10px;
-  list-style-type: none;
-  padding: 0;
+  .input-help {
+    font-size: 10px;
+    list-style-type: none;
+    padding: 0;
+  }  
+  
+  div.tagsinput {
+    @include border-radius(3px);
+
+    span.tag {
+      padding: 3px 10px;
+      @include border-radius(3px);
+      border: none;
+      background: #2A2333;
+      color: #ffffff;
+      font-weight: normal;
+      font-size: 12px;
+
+      a {
+        margin-left: 5px;
+        color: #6F647A;
+      }
+    }
+  }
+  
+  input[type=button], input[type=submit] {
+    margin-top: 20px;
+  }
 }
 
 input[type=button], input[type=submit], a.button { 
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   line-height: normal;
   padding: 8px 25px;
   @include border-radius(3px);
   border: none;
-  background: #008381;
+  background: #2A2333;
   color: #ffffff;
   cursor: pointer;
   
   &:hover, &:focus {
-    background: #00C481;
+    background: #806A9C;
   }
   
   &.large {
     padding: 12px 25px;
-    font-size: 14px;
+    font-size: 16px;
   }
   
   &.small {
     padding: 2px 10px;
     font-size: 12px;
+    font-weight: normal;
   }
   
   &.in-progress {
     background: #464646;
   }
-}
-
-div.tagsinput {
-  @include border-radius(3px);
-  
-  span.tag {
-    padding: 3px 10px;
-    @include border-radius(3px);
-    border: none;
-    background: #008381;
-    color: #ffffff;
-    font-weight: normal;
-    font-size: 12px;
-  
-    a {
-      margin-left: 5px;
-    }
-  }
-}
-
-form input[type=button], form input[type=submit] {
-  margin-top: 20px;
 }
 
 #main-wrapper {
@@ -135,15 +140,35 @@ header {
     float: left;
     line-height: 60px;
     font-size: 30px;
-    
-    a {
-      color: #000;
-    }
   }
   
-  #current-user {
+  #main-nav {
     float: right;
     line-height: 60px;
+    
+    #current-user {
+      a {
+        color: #000; 
+
+        &:hover {
+         color: #806A9C; 
+        }
+
+        &.signout {
+          margin-left: 20px; 
+
+          .icon-off {
+            line-height: normal;
+          } 
+        }
+      } 
+    }
+    
+    #sign-in-with-github {
+      .icon-github {
+        margin-right: 10px;
+      }
+    }
     
     #current-user-profile-image {
       width: 20px;
@@ -164,10 +189,19 @@ header {
   }
 }
 
-#contribute {
-  line-height: 41px;
+#guides-and-references-header {
+  line-height: 33px;
   @include border-radius(3px);
   background: #E8F0F5;
+  
+  #filter-by-tag {
+    display: inline-block;
+    line-height: 26px;
+    
+    #tag-filter { 
+      margin-left: 10px;
+    }
+  }
   
   #contribute-button {
     float: right;
@@ -182,16 +216,33 @@ header {
     border-bottom: dashed 1px #CCC;
     
     &:last-child {
-     border-bottom: none; 
+      border-bottom: none; 
+    }
+    
+    .favorite {
+      float: left;
+      margin-right: 10px;
+      font-size: 21px;
+      line-height: 21px;  
+      
+      &:hover {
+        cursor: pointer;
+      }
+      
+      &:hover, &.is-favorite {
+        color: #E9C12D;
+      }
     }
     
     .link {
       display: block;
       margin-bottom: 10px;
+      line-height: 22px;
     }
     
     .link-details {
       height: 25px;
+      margin-left: 26px;
       line-height: 25px;
       
       .time-ago-and-submitter {
@@ -223,4 +274,20 @@ header {
       }
     }
   }
+}
+
+.pagination {
+  text-align: center;
+  
+  .previous_page {
+    margin-right: 5px;
+  }
+  
+  .next_page {
+    margin-left: 5px;
+  }
+}
+
+.select2-results .select2-highlighted {
+  background: #806A9C !important;
 }

@@ -21,6 +21,7 @@
     <ul class='input-help'>
       <li>- At least one tag is required.</li>
       <li>- 25 character maximum per tag.</li>
+      <li>- Only characters a-z, 0-9, and spaces.</li>
       <li>- ex: javascript, js</li>
     </ul>
     
@@ -33,6 +34,19 @@
                   .addClass('show-notice');
 
       $("#submit-link").removeClass('in-progress').attr('disabled', false);
+    }
+    
+    function validateTags (tags) {
+      var validTags = true;
+
+      for (var i = 0; i < tags.length; i++) {
+        if (tags[i].match(/^[a-z0-9 ]+$/i) == null) {
+          validTags = false;
+          break;
+        }
+      }
+      
+      return validTags;
     }
     
     $(document).ready(function () {
@@ -49,10 +63,10 @@
       
       $('#new_link').submit(function () {
         $("#submit-link").addClass('in-progress').attr('disabled', true);
-      
+        console.log(validateTags($('#link_tags').val().split(',')));
         var newLink = $('#link_url').val().trim();
         var newLinkTitle = $('#link_title').val().trim();
-        
+
         if (newLink == "") {
           newLinkError("Please enter a valid URL for the Guide/Reference you're wanting to submit.");
           return false;
@@ -67,6 +81,10 @@
         }
         else if ($('#link_tags').val() == "") {
           newLinkError("At least one tag is required.");
+          return false;
+        }
+        else if (!validateTags($('#link_tags').val().split(','))) {
+          newLinkError("Tags may only contain character a-z, 0-9, and spaces.");
           return false;
         }
         else {

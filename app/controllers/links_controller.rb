@@ -1,4 +1,6 @@
 class LinksController < ApplicationController
+  before_filter :ensure_current_user
+  
   def new
     @link = Link.new
   end
@@ -12,7 +14,9 @@ class LinksController < ApplicationController
     else  
       link_to_create[:user_id]  = @current_user.id
 
-      Link.create(link_to_create)
+      new_link = Link.create(link_to_create)
+      
+      @current_user.favorites.create(:link_id => new_link.id)
 
       flash[:notice] = "Thanks for submitting a new Guide/Reference!"
       destination = root_url

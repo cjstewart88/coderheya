@@ -58,5 +58,7 @@ module Coderheya
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    config.assets.paths << "#{Rails.root}/vendor/assets/fonts"
   end
 end
