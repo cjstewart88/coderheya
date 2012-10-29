@@ -16,8 +16,8 @@
       <li>- ex: http://addyosmani.com/resources/essentialjsdesignpatterns/book/</li>
     </ul>
     
-    <%= label_tag :tag, 'Tag:' %>
-    <%= select_tag("tag-picker", options_for_select([''] + POSSIBLE_TAGS), :name => 'link[tag]') %>
+    <%= label_tag :tags, 'Tags:' %>
+    <%= select_tag("tag-picker", options_for_select([''] + POSSIBLE_TAGS), :name => 'link[tags][]', :multiple => true) %>
     <ul class='input-help'>
       <li>- At least one tag is required.</li>
     </ul>
@@ -57,19 +57,21 @@
           newLinkError("Guide/Reference titles must be under 80 characters.");
           return false;
         }
-        else if ($('#tag-picker').val() == "") {
+        else if ($('#tag-picker').val() == null) {
           newLinkError("At least one tag is required.");
           return false;
         }
         else {
           // If the url doesn't have http:// at the beginning, add it.
           if (newLink.match(/^http:\/\//) == null) {
-            // If the url has www. at the beginning, remove it.
-            if (newLink.match(/^www./) != null) {
-              newLink = newLink.replace(/^www./, '');
+            if (newLink.match(/^https:\/\//) == null) {
+              // If the url has www. at the beginning, remove it.
+              if (newLink.match(/^www./) != null) {
+                newLink = newLink.replace(/^www./, '');
+              }
+
+              newLink = 'http://' + newLink; 
             }
-          
-            newLink = 'http://' + newLink;
           }
           else {
             newLink = newLink.replace(/www./, '');  

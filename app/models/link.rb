@@ -13,7 +13,7 @@ class Link < ActiveRecord::Base
       link.url      = params["url"]
     end
     
-    new_link.tag_list = params[:tag]
+    new_link.tag_list = params[:tags].split(',')
     new_link.save
     
     new_link
