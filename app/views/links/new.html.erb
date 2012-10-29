@@ -53,6 +53,10 @@
           newLinkError("Please enter a title for the Guide/Reference you're wanting to submit.");
           return false;
         }
+        else if (newLinkTitle.match(/^http:\/\//) || newLinkTitle.match(/^https:\/\//) || newLinkTitle.match(/^www./)) {
+          newLinkError('Did you get your url and title mixed up? Titles cannot start with "www.", "http://", or "https://".');
+          return false;
+        }
         else if (newLinkTitle.length > 80) {
           newLinkError("Guide/Reference titles must be under 80 characters.");
           return false;
