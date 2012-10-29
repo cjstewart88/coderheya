@@ -10,7 +10,7 @@
     <div id="main-wrapper">
       <div id="inner-wrapper">
         <header>
-          <h1 id="logo" class="tooltip" title="In sumo wrestling, a heya is an organization of sumo wrestlers where they train and live. All wrestlers in professional sumo must belong to one... welcome to the your Coder Heya.">
+          <h1 id="logo" class="tooltip" title="In sumo wrestling, a heya is an organization of sumo wrestlers where they train and live. All wrestlers in professional sumo must belong to one... welcome to your Coder Heya.">
             <a href="/">Coder Heya</a>
           </h1>
 
@@ -34,6 +34,20 @@
         <aside id="notice" class="<%= 'show-notice' if flash[:notice] %>"><%= flash[:notice] %></aside>
         
         <%= yield %>
+        
+        <% if Rails.env.production? %>
+          <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-35945047-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+          </script>
+        <% end %>
       </div>
     </div>
   </body>

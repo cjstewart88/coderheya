@@ -16,13 +16,10 @@
       <li>- ex: http://addyosmani.com/resources/essentialjsdesignpatterns/book/</li>
     </ul>
     
-    <%= label_tag :tags, 'Tags:' %>
-    <%= f.text_field :tags, :value => '' %>
+    <%= label_tag :tag, 'Tag:' %>
+    <%= select_tag("tag-picker", options_for_select(['', 'Bash', 'Java','C','C++','C#','Perl','JavaScript','Visual Basic','PHP','Ruby','Python','Ruby on Rails','HTML','CSS','MySQL','Postgres','Node.js','Lisp','jQuery','ASP.net','Git','django','MongoDB']), :name => 'link[tag]') %>
     <ul class='input-help'>
       <li>- At least one tag is required.</li>
-      <li>- 25 character maximum per tag.</li>
-      <li>- Only characters a-z, 0-9, and spaces.</li>
-      <li>- ex: javascript, js</li>
     </ul>
     
     <%= f.submit "Submit", :id => 'submit-link', :class => 'large' %>
@@ -36,29 +33,10 @@
       $("#submit-link").removeClass('in-progress').attr('disabled', false);
     }
     
-    function validateTags (tags) {
-      var validTags = true;
-
-      for (var i = 0; i < tags.length; i++) {
-        if (tags[i].match(/^[a-z0-9 ]+$/i) == null) {
-          validTags = false;
-          break;
-        }
-      }
-      
-      return validTags;
-    }
-    
     $(document).ready(function () {
-      $('#link_tags').tagsInput({
-         'height':'100px',
-         'width':'363px',
-         'interactive': true,
-         'defaultText': 'add tag',
-         'removeWithBackspace' : true,
-         'minChars' : 0,
-         'maxChars' : 25,
-         'placeholderColor' : '#666666'
+      $('#tag-picker').select2({
+        placeholder: 'Select a Tag',
+        width: '200px'
       });
       
       $('#new_link').submit(function () {
@@ -79,12 +57,8 @@
           newLinkError("Guide/Reference titles must be under 80 characters.");
           return false;
         }
-        else if ($('#link_tags').val() == "") {
+        else if ($('#tag-picker').val() == "") {
           newLinkError("At least one tag is required.");
-          return false;
-        }
-        else if (!validateTags($('#link_tags').val().split(','))) {
-          newLinkError("Tags may only contain character a-z, 0-9, and spaces.");
           return false;
         }
         else {

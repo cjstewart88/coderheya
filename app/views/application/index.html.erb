@@ -1,6 +1,6 @@
 <aside id="guides-and-references-header">
   <div id="filter-by-tag">
-    Filter By Tag: <%= select_tag("tag-filter", options_for_select(['', 'all'] + Link.tag_counts_on(:tags), params[:tag] || nil)) %>
+    Filter By Tag: <%= select_tag("tag-filter", options_for_select(['', 'all', 'Bash', 'Java','C','C++','C#','Perl','JavaScript','Visual Basic','PHP','Ruby','Python','Ruby on Rails','HTML','CSS','MySQL','Postgres','Node.js','Lisp','jQuery','ASP.net','Git','django','MongoDB'], params[:tag] || nil)) %>
   </div>
   
   <% if @current_user %>
