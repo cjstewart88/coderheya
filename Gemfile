@@ -8,4 +8,6 @@ gem 'will_paginate', '~> 3.0'
 
 gem 'sass-rails'
 gem 'compass-rails'
+gem 'uglifier'
+
 gem 'jquery-rails'
