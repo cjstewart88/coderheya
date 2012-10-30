@@ -9,8 +9,11 @@
 </aside>
 
 <section id="guides-and-references">
-  <% if params[:nickname] %>
-    <h2><%= params[:nickname] %>'s Favorites</h2>
+  <% if @user_profile %>
+    <h2 id="user-profile">
+      <img src="http://www.gravatar.com/avatar/<%= @user_profile.gravatar_id %>"/>
+      <%= params[:nickname] %>'s Favorites
+    </h2>
   <% end %>
   
   <% if @links.count != 0 %>

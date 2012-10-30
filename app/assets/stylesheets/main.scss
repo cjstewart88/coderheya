@@ -210,6 +210,19 @@ header {
 }
 
 #guides-and-references {
+  #user-profile {
+    margin-bottom: 25px;
+    padding-left: 50px;
+    line-height: 40px;
+    
+    img {
+      position: absolute;
+      width: 40px;
+      margin-left: -50px;
+      @include border-radius(3px);
+    }
+  }
+  
   .link-summary {
     margin-bottom: 20px;
     padding-bottom: 20px;

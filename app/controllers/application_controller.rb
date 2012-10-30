@@ -14,6 +14,11 @@ class ApplicationController < ActionController::Base
       :nickname => params[:nickname]
     }
     
+    if options[:nickname]
+      redirect_to root_url and return if User.find_by_nickname(options[:nickname]).nil?
+      @user_profile = User.where(:nickname => options[:nickname]).first
+    end
+    
     @links = links(options)
   end
   
@@ -29,16 +34,12 @@ class ApplicationController < ActionController::Base
   
   def links(options)
     if options[:nickname] 
-      if !User.exists?(:nickname => options[:nickname])
-        redirect_to root_url
+      if options[:tag]
+        favorites = User.find_by_nickname(options[:nickname]).links
+        favorites.tagged_with(options[:tag]).paginate(:page => params[:page])
       else
-        if options[:tag]
-          favorites = User.find_by_nickname(options[:nickname]).links
-          favorites.tagged_with(options[:tag]).paginate(:page => params[:page])
-        else
-          User.find_by_nickname(options[:nickname]).links.paginate(:page => params[:page])
-        end 
-      end
+        User.find_by_nickname(options[:nickname]).links.paginate(:page => params[:page])
+      end 
     elsif options[:all]
       Link.order("created_at DESC").paginate(:page => params[:page])
     else
