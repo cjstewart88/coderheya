@@ -3,9 +3,18 @@ class ApplicationController < ActionController::Base
 
   require 'will_paginate/array'
 
+  before_filter :ensure_domain
   before_filter :current_user
   
   helper_method :links
+  
+  APP_DOMAIN = 'www.coderheya.com'
+
+  def ensure_domain
+    if Rails.env.production? && request.env['HTTP_HOST'] != APP_DOMAIN
+      redirect_to "http://#{APP_DOMAIN}#{request.fullpath}", :status => 301
+    end
+  end
   
   def index
     options = {
