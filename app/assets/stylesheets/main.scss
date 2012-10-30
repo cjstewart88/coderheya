@@ -190,22 +190,21 @@ header {
 }
 
 #guides-and-references-header {
-  line-height: 33px;
   @include border-radius(3px);
   background: #E8F0F5;
   
   #filter-by-tag {
     display: inline-block;
-    line-height: 26px;
+    line-height: 41px;
     
-    #tag-filter { 
-      margin-left: 10px;
+    .select2-container { 
+      margin-left: 5px;
     }
   }
   
   #contribute-button {
     float: right;
-    margin-top: -1px;
+    margin-top: 5px;
   }
 }
 
@@ -299,8 +298,4 @@ header {
   .next_page {
     margin-left: 5px;
   }
-}
-
-.select2-results .select2-highlighted {
-  background: #806A9C !important;
 }

@@ -1,0 +1,67 @@
+@import "compass";
+
+.select2-results .select2-highlighted {
+  background: #806A9C !important;
+}
+
+.select2-drop {
+  margin-top: -2px;
+  @include border-bottom-left-radius(3px);
+  @include border-bottom-right-radius(3px);
+}
+
+.select2-drop.select2-drop-above {
+  margin-top: 2px;
+  @include border-bottom-left-radius(3px);
+  @include border-bottom-right-radius(3px);
+  @include border-bottom-left-radius(0px);
+  @include border-bottom-right-radius(0px);
+}
+
+.select2-drop, .select2-drop.select2-drop-above {
+  border-color: #ccc;
+  @include box-shadow(none);
+}
+
+.select2-container, .select2-container-multi {
+  &.select2-container-active {
+    border-color: #ccc;
+    @include box-shadow(none);
+      
+    .select2-choices, .select2-drop {
+      border-color: #ccc;
+      @include box-shadow(none);
+    } 
+  }
+  
+  .select2-choices, .select2-choice {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border-color: #ccc;
+    @include border-radius(3px);
+    background: #fff;
+  }
+  
+  .select2-choices {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .select2-choice {
+    @include box-shadow(none);
+    padding-left: 12px;
+    
+    div {
+      background: none;
+      border-left: none;
+      
+      b {
+        background-position: -4px 6px;
+      }
+    }
+  }
+}
+
+.select2-dropdown-open .select2-choice div b {
+  background-position: -22px 6px;
+}

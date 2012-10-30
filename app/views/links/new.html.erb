@@ -16,7 +16,7 @@
       <li>- ex: http://addyosmani.com/resources/essentialjsdesignpatterns/book/</li>
     </ul>
     
-    <%= label_tag :tags, 'Tags:' %>
+    <%= label_tag :tags, 'Tags (<a href="mailto:coderheya@gmail.com">Suggest a Tag</a>) :'.html_safe %>
     <%= select_tag("tag-picker", options_for_select([''] + POSSIBLE_TAGS), :name => 'link[tags][]', :multiple => true) %>
     <ul class='input-help'>
       <li>- At least one tag is required.</li>
@@ -36,7 +36,7 @@
     $(document).ready(function () {
       $('#tag-picker').select2({
         placeholder: 'Select a Tag',
-        width: '200px'
+        width: '376px'
       });
       
       $('#new_link').submit(function () {
