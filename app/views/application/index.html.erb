@@ -1,14 +1,14 @@
-<aside id="guides-and-references-header">
+<aside id="link-header">
   <div id="filter-by-tag">
     Filter By Tag: <%= select_tag("tag-filter", options_for_select(['', 'all',] + POSSIBLE_TAGS, params[:tag] || nil)) %>
   </div>
   
   <% if @current_user %>
-    <a href="/links/new" id="contribute-button" class="button">Submit a Guide/Reference</a>
+    <a href="/links/new" id="contribute-button" class="button">Submit a Link</a>
   <% end %>
 </aside>
 
-<section id="guides-and-references">
+<section id="links">
   <% if @user_profile %>
     <h2 id="user-profile">
       <img src="http://www.gravatar.com/avatar/<%= @user_profile.gravatar_id %>"/>
@@ -48,9 +48,9 @@
     <% elsif params[:nickname] %>
       This user has 0 Favorites.
     <% elsif params[:tag] %>
-      The tag "<%= params[:tag] %>" has 0 Guides/References.
+      The tag "<%= params[:tag] %>" has 0 links.
     <% else %>
-      There seems to be 0 Guides/References.
+      There seems to be nothing here.
     <% end %>
   <% end %>
 </section>
@@ -71,7 +71,7 @@
       else {
         location += (tag == 'all' ? '' : 'tag/' + tag)
       }
-      console.log(location);
+
       window.location = location;
     });
     

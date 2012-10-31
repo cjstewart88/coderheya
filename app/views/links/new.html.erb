@@ -1,5 +1,5 @@
 <section>
-  <h2>Submit a Guide/Reference</h2>
+  <h2>Submit a Link</h2>
 
   <%= form_for @link, :url => { :action => "create" }, :html => { :class => "" } do | f | %>
     <%= label_tag :title, 'Title:' %>
@@ -46,11 +46,11 @@
         var newLinkTitle = $('#link_title').val().trim();
 
         if (newLink == "") {
-          newLinkError("Please enter a valid URL for the Guide/Reference you're wanting to submit.");
+          newLinkError("Please enter a valid URL.");
           return false;
         }
         else if (newLinkTitle == "") {
-          newLinkError("Please enter a title for the Guide/Reference you're wanting to submit.");
+          newLinkError("Please enter a title for the Link you're wanting to submit.");
           return false;
         }
         else if (newLinkTitle.match(/^http:\/\//) || newLinkTitle.match(/^https:\/\//) || newLinkTitle.match(/^www./)) {
@@ -58,7 +58,7 @@
           return false;
         }
         else if (newLinkTitle.length > 80) {
-          newLinkError("Guide/Reference titles must be under 80 characters.");
+          newLinkError("Link titles must be under 80 characters.");
           return false;
         }
         else if ($('#tag-picker').val() == null) {
