@@ -17,7 +17,6 @@
           <nav id="main-nav">
             <a href="#" id="about-toggle">About</a>
             <a href="mailto:coderheya@gmail.com">Contact</a>
-            <a href="http://www.twitter.com/coderheya" target="_blank">@coderheya</a>
           </nav>
           
           <nav id="user-nav">
@@ -28,7 +27,7 @@
                   <%= @current_user.nickname %>
                 </a>
                 <a href="<%= signout_path %>" class="signout">
-                  <span class="icon-off"></span>
+                  <span class="icon-off tooltip" title="Sign Out"></span>
                 </a>
               </div>
             <% else %>  
@@ -65,7 +64,7 @@
       <p>
         This project is made with care by <a href="http://www.twitter.com/codyjackstewart" target="_blank">@codyjackstewart</a>. 
         If you have any questions, suggestions, or just want to say hey... please shoot an email 
-        to <a href="mailto:coderheya@gmail.com">coderheya@gmail.com</a> or reach out on twitter <a href="http://www.twitter.com/coderheya" target="_blank">@coderheya</a>!
+        to <a href="mailto:coderheya@gmail.com">coderheya@gmail.com</a>!
       </p>
     </div>
   </body>
