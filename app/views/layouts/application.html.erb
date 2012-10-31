@@ -13,8 +13,14 @@
           <h1 id="logo" class="tooltip" title="In sumo wrestling, a heya is an organization of sumo wrestlers where they train and live. All wrestlers in professional sumo must belong to one... welcome to your Coder Heya.">
             <a href="/">Coder Heya</a>
           </h1>
-
+          
           <nav id="main-nav">
+            <a href="#" id="about-toggle">About</a>
+            <a href="mailto:coderheya@gmail.com">Contact</a>
+            <a href="http://www.twitter.com/coderheya" target="_blank">@coderheya</a>
+          </nav>
+          
+          <nav id="user-nav">
             <% if @current_user %>
               <div id="current-user">
                 <a href='/users/<%= @current_user.nickname %>'>
@@ -49,6 +55,18 @@
           </script>
         <% end %>
       </div>
+    </div>
+    
+    <div id="about-dialog">
+      <p>
+        Coder Heya is a place for programmers to curate books, guides, and references by submitting 
+        links. User's are required to sign in with GitHub in order to submit links and favorite links. 
+      </p>
+      <p>
+        This project is made with care by <a href="http://www.twitter.com/codyjackstewart" target="_blank">@codyjackstewart</a>. 
+        If you have any questions, suggestions, or just want to say hey... please shoot an email 
+        to <a href="mailto:coderheya@gmail.com">coderheya@gmail.com</a> or reach out on twitter <a href="http://www.twitter.com/coderheya" target="_blank">@coderheya</a>!
+      </p>
     </div>
   </body>
 </html>

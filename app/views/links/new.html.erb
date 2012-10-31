@@ -1,6 +1,28 @@
 <section>
   <h2>Submit a Link</h2>
-
+  
+  <aside id="guidelines">
+    <h3>Things to keep in mind:</h3>
+    <ul>
+      <li>
+        Links must pertain to programming.
+      </li>
+      <li>
+        We prefer links to <b>FREE</b> books, guides, or references.
+      </li>
+      <li>
+        No blog post about personal experiences being a software engineer.
+      </li>
+      <li>
+        Not sure if it's something you should submit. Shoot an email with 
+        the link to <i><a href="mailto:coderheya@gmail.com">coderheya AT gmail DOT com</a></i>.
+      </li>
+      <li>
+        Submissions are monitored and subject to removal at any point.
+      </li>
+    </ul>
+  </aside>
+  
   <%= form_for @link, :url => { :action => "create" }, :html => { :class => "" } do | f | %>
     <%= label_tag :title, 'Title:' %>
     <%= f.text_field :title %>

@@ -1,5 +1,9 @@
 @import "compass";
 
+* {
+    outline: none;
+}
+
 header, footer, aside, nav, article, section { display: block; }
 
 body {
@@ -22,11 +26,15 @@ h1, h2, h3, h4 {
   margin: 0 0 15px;
 }
 
-form {
-  textarea:focus, input:focus{
-    outline: none;
-  }
+h2 {
+  font-size: 22px;
+}
 
+h3 { 
+  font-size: 16px;
+}
+
+form {
   input, label, textarea, .input-help {
     display: block;
     margin-bottom: 10px;
@@ -35,6 +43,7 @@ form {
   label {
     display: block;
     font-weight: bold;
+    font-size: 16px;
   }
 
   input {
@@ -143,8 +152,19 @@ header {
   }
   
   #main-nav {
+    float: left;
+    line-height: 64px;
+    margin-left: 25px;
+    
+    a {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+  }
+  
+  #user-nav {
     float: right;
-    line-height: 60px;
+    line-height: 64px;
     
     #current-user {
       a {
@@ -297,5 +317,23 @@ header {
   
   .next_page {
     margin-left: 5px;
+  }
+}
+
+#guidelines {
+  float: right;
+  width: 50%;
+  padding-top: 0;
+  
+  h3 {
+    margin-top: 0;
+  }
+  
+  ul {
+    padding-left: 20px;
+    
+    li {
+      margin-bottom: 10px;
+    }
   }
 }
