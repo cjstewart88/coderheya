@@ -1,10 +1,11 @@
 class Link < ActiveRecord::Base
-  attr_accessible :submitter, :title, :url
+  attr_accessible :submitter, :title, :url, :clicks
   
   acts_as_taggable
   acts_as_taggable_on :tags
   
   belongs_to :user
+  has_many :favorites
   
   def self.create(params)
     new_link = create! do | link |

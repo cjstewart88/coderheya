@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_filter :ensure_current_user
+  before_filter :ensure_current_user, :except => [:increment_clicks]
   
   def new
     @link = Link.new
@@ -23,5 +23,16 @@ class LinksController < ApplicationController
     end
     
     redirect_to destination
+  end
+  
+  def increment_clicks    
+    link = Link.find(params[:id])
+    link.increment(:clicks)
+    link.save
+    
+    render :json => {
+      :success  => true,
+      :count    => link.clicks
+    }
   end
 end

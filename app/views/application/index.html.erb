@@ -20,15 +20,18 @@
     <% @links.each do | link | %>
       <div class="link-summary">
         <span class="favorite <%= (!@current_user || @current_user.favorites.select { | k | k[:link_id] == link[:id] }.empty? ? 'icon-star-empty'.html_safe : 'is-favorite icon-star'.html_safe) %>" data-link-id="<%= link[:id] %>"></span> 
-      
-        <a href="<%= link[:url] %>" target="_blank" class="link"><%= link[:title] %></a>
+
+        <a href="<%= link[:url] %>" target="_blank" class="link" data-link-id="<%= link[:id] %>"><%= link[:title] %></a>
       
         <div class="link-details">
-          <span class="time-ago-and-submitter">
-            <%= time_ago_in_words(link[:created_at]) %> ago by 
-            <a href='/users/<%= link.user[:nickname] %>'>
-              <img src="http://www.gravatar.com/avatar/<%= link.user[:gravatar_id] %>" class="submitter-profile-image"> 
-              <span class="submitter-nickname"><%= link.user[:nickname] %></span>
+          <span class="counts-and-submitter">
+            <span class="counts">
+              <span class="icon-star"></span><span class="favorites-count"><%= link.favorites.count %></span>
+              <span class="icon-eye-open"></span><span class="clicks-count"><%= link[:clicks] %></span>
+            </span>
+            
+            <a href='/users/<%= link.user[:nickname] %>' class="submitter tooltip-nickname" title="<%= link.user[:nickname] %>">
+              <img src="http://www.gravatar.com/avatar/<%= link.user[:gravatar_id] %>"> 
             </a>
           </span>
         
@@ -57,6 +60,27 @@
 
 <script>
   $(document).ready(function () {
+    $('.tooltip-nickname').tipsy({ gravity: 'se' })
+    
+    $('.link').click(function () {
+      var self = $(this);
+      
+      $.ajax({
+        type: 'POST',
+        url: '/links/click',
+        data: {
+          "id": $(this).data('link-id')
+        },
+        dataType: 'json',
+        success: function (data) {
+          console.log(data);
+          if (data.success) {
+            self.parent().find('.clicks-count').text(data.count);
+          }
+        }
+      });
+    });
+    
     $('#tag-filter').select2({
       placeholder: 'all',
       width: '200px'
@@ -137,7 +161,7 @@
       $('.favorite').tipsy({ 
         delayIn: 500, 
         fallback: 'You must sign in with Github to save favorites.',
-        gravity: $.fn.tipsy.autoWE
+        gravity: 'nw'
       });
 
       $('.favorite').mouseover(function () {

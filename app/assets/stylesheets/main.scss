@@ -273,24 +273,31 @@ header {
     }
     
     .link-details {
-      height: 25px;
+      height: 28px;
       margin-left: 26px;
-      line-height: 25px;
+      line-height: 28px;
       
-      .time-ago-and-submitter {
+      .counts-and-submitter {
         float: right;
         font-size: 12px;
         
-        .submitter-profile-image {
-          width: 20px;
-          position: absolute;
-          margin-top: 3px;
-          margin-left: 2px;
-          @include border-radius(3px);
+        .counts {
+          float: left;
+          
+          span {
+            margin-left: 10px;
+          }
         }
         
-        .submitter-nickname {
-          margin-left: 25px;
+        .submitter {
+          float: left;
+          margin-left: 20px;
+          
+          img {
+            width: 20px;
+            margin-top: 4px;
+            @include border-radius(3px);
+          }
         }
       }
 

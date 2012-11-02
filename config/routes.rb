@@ -12,4 +12,5 @@ Coderheya::Application.routes.draw do
   match '/users/:nickname(/:tag)' => 'application#index'
   
   resources :links, :only => [:new, :create]
+  post 'links/click' => 'links#increment_clicks'
 end
