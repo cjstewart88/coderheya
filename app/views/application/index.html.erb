@@ -2,7 +2,7 @@
   <div id="filter-by-tag">
     Filter By Tag: <%= select_tag("tag-filter", options_for_select(['', 'all',] + POSSIBLE_TAGS, params[:tag] || nil)) %>
   </div>
-  
+
   <% if @current_user %>
     <a href="/links/new" id="contribute-button" class="button">Submit a Link</a>
   <% end %>
@@ -15,26 +15,26 @@
       <%= params[:nickname] %>'s Favorites
     </h2>
   <% end %>
-  
+
   <% if @links.count != 0 %>
     <% @links.each do | link | %>
       <div class="link-summary">
-        <span class="favorite <%= (!@current_user || @current_user.favorites.select { | k | k[:link_id] == link[:id] }.empty? ? 'icon-star-empty'.html_safe : 'is-favorite icon-star'.html_safe) %>" data-link-id="<%= link[:id] %>"></span> 
+        <span class="favorite <%= (!@current_user || @current_user.favorites.select { | k | k[:link_id] == link[:id] }.empty? ? 'icon-star-empty'.html_safe : 'is-favorite icon-star'.html_safe) %>" data-link-id="<%= link[:id] %>"></span>
 
         <a href="<%= link[:url] %>" target="_blank" class="link" data-link-id="<%= link[:id] %>"><%= link[:title] %></a>
-      
+
         <div class="link-details">
           <span class="counts-and-submitter">
             <span class="counts">
               <span class="icon-star"></span><span class="favorites-count"><%= link.favorites.count %></span>
               <span class="icon-eye-open"></span><span class="clicks-count"><%= link[:clicks] %></span>
             </span>
-            
+
             <a href='/users/<%= link.user[:nickname] %>' class="submitter tooltip-nickname" title="<%= link.user[:nickname] %>">
-              <img src="http://www.gravatar.com/avatar/<%= link.user[:gravatar_id] %>"> 
+              <img src="http://www.gravatar.com/avatar/<%= link.user[:gravatar_id] %>">
             </a>
           </span>
-        
+
           <ul class="tags">
             <% link.tag_list.each do | tag | %>
               <li class="tag"><a href="/tag/<%= tag %>" class="button small"><%= tag %></a></li>
@@ -43,7 +43,7 @@
         </div>
       </div>
     <% end %>
-  
+
     <%= will_paginate @links, :page_links => false %>
   <% else %>
     <% if params[:nickname] && params[:tag] %>
@@ -61,10 +61,10 @@
 <script>
   $(document).ready(function () {
     $('.tooltip-nickname').tipsy({ gravity: 'se' })
-    
+
     $('.link').click(function () {
       var self = $(this);
-      
+
       $.ajax({
         type: 'POST',
         url: '/links/click',
@@ -80,15 +80,15 @@
         }
       });
     });
-    
+
     $('#tag-filter').select2({
       placeholder: 'all',
       width: '200px'
-    }).change(function () {  
+    }).change(function () {
       var nickname  = '<%= params[:nickname] %>';
-      var tag       = $(this).val();
+      var tag       = encodeURIComponent($(this).val());
       var location  = '/';
-      
+
       if (nickname) {
         location += 'users/' + nickname + (tag == 'all' ? '' : '/' + tag)
       }
@@ -98,7 +98,7 @@
 
       window.location = location;
     });
-    
+
     <% if @current_user %>
       $('.favorite').mouseover(function () {
         if (!$(this).hasClass('is-favorite')) {
@@ -106,22 +106,22 @@
         }
       }).mouseout(function () {
         if (!$(this).hasClass('is-favorite')) {
-          $(this).addClass('icon-star-empty').removeClass('icon-star'); 
+          $(this).addClass('icon-star-empty').removeClass('icon-star');
         }
       });
-    
+
       $('.favorite').click(function () {
         var starClicked = $(this);
-        
+
         if (!starClicked.hasClass('disabled')) {
           starClicked.addClass('disabled');
         }
         else {
           return;
         }
-        
+
         var linkId = starClicked.data('link-id');
-        
+
         if (starClicked.hasClass('is-favorite')) {
           // remove favorite
           $.ajax({
@@ -133,7 +133,7 @@
             dataType: 'json',
             success: function (data) {
               if (data.success) {
-                starClicked.addClass('icon-star-empty').removeClass('is-favorite icon-star'); 
+                starClicked.addClass('icon-star-empty').removeClass('is-favorite icon-star');
                 starClicked.removeClass('disabled');
               }
             }
@@ -158,8 +158,8 @@
         }
       });
     <% else %>
-      $('.favorite').tipsy({ 
-        delayIn: 500, 
+      $('.favorite').tipsy({
+        delayIn: 500,
         fallback: 'You must sign in with Github to save favorites.',
         gravity: 'nw'
       });
