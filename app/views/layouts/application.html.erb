@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Programming Books, Guides, and References | Coder Heya</title>
+    <title>Free Programming Books, Guides, and References | Coder Heya</title>
     <%= stylesheet_link_tag    "application", "http://fonts.googleapis.com/css?family=Open+Sans:400,800,700" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
@@ -13,33 +13,33 @@
           <h1 id="logo" class="tooltip" title="In sumo wrestling, a heya is an organization of sumo wrestlers where they train and live. All wrestlers in professional sumo must belong to one... welcome to your Coder Heya.">
             <a href="/">Coder Heya</a>
           </h1>
-          
+
           <nav id="main-nav">
             <a href="#" id="about-toggle">About</a>
             <a href="mailto:coderheya@gmail.com">Contact</a>
           </nav>
-          
+
           <nav id="user-nav">
             <% if @current_user %>
               <div id="current-user">
                 <a href='/users/<%= @current_user.nickname %>'>
-                  <img src="http://www.gravatar.com/avatar/<%= @current_user.gravatar_id %>" id="current-user-profile-image">              
+                  <img src="http://www.gravatar.com/avatar/<%= @current_user.gravatar_id %>" id="current-user-profile-image">
                   <%= @current_user.nickname %>
                 </a>
                 <a href="<%= signout_path %>" class="signout">
                   <span class="icon-off tooltip" title="Sign Out"></span>
                 </a>
               </div>
-            <% else %>  
+            <% else %>
               <a id="sign-in-with-github" class="button large" href="/auth/github"><span class="icon-github"></span> Sign in with Github</a>
             <% end %>
           </nav>
         </header>
-        
+
         <aside id="notice" class="<%= 'show-notice' if flash[:notice] %>"><%= flash[:notice] %></aside>
-        
+
         <%= yield %>
-        
+
         <% if Rails.env.production? %>
           <script type="text/javascript">
             var _gaq = _gaq || [];
@@ -55,15 +55,14 @@
         <% end %>
       </div>
     </div>
-    
+
     <div id="about-dialog">
       <p>
-        Coder Heya is a place for programmers to curate books, guides, and references by submitting 
-        links. User's are required to sign in with GitHub in order to submit links and favorite links. 
+        Coder Heya is a place for free programming books, guides, and references. Sign in by authing with GitHub to submit links and favorite links.
       </p>
       <p>
-        This project is made with care by <a href="http://www.twitter.com/codyjackstewart" target="_blank">@codyjackstewart</a>. 
-        If you have any questions, suggestions, or just want to say hey... please shoot an email 
+        This project is made with care by <a href="http://www.twitter.com/codyjackstewart" target="_blank">@codyjackstewart</a>.
+        If you have any questions, suggestions, or just want to say hey... please shoot an email
         to <a href="mailto:coderheya@gmail.com">coderheya@gmail.com</a>!
       </p>
     </div>
