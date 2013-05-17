@@ -16,9 +16,9 @@ body {
 a {
   color: #000;
   text-decoration: none;
-  
+
   &:hover {
-   color: #806A9C; 
+   color: #806A9C;
   }
 }
 
@@ -30,7 +30,7 @@ h2 {
   font-size: 22px;
 }
 
-h3 { 
+h3 {
   font-size: 16px;
 }
 
@@ -51,7 +51,7 @@ form {
   }
 
   input[type=text] {
-    width: 350px;  
+    width: 350px;
     padding: 10px 12px;
     border: solid 1px #CCC;
     font-size: 14px;
@@ -62,33 +62,14 @@ form {
     font-size: 10px;
     list-style-type: none;
     padding: 0;
-  }  
-  
-  div.tagsinput {
-    @include border-radius(3px);
-
-    span.tag {
-      padding: 3px 10px;
-      @include border-radius(3px);
-      border: none;
-      background: #2A2333;
-      color: #ffffff;
-      font-weight: normal;
-      font-size: 12px;
-
-      a {
-        margin-left: 5px;
-        color: #6F647A;
-      }
-    }
   }
-  
+
   input[type=button], input[type=submit] {
     margin-top: 20px;
   }
 }
 
-input[type=button], input[type=submit], a.button { 
+input[type=button], input[type=submit], a.button {
   font-size: 14px;
   font-weight: bold;
   line-height: normal;
@@ -98,22 +79,22 @@ input[type=button], input[type=submit], a.button {
   background: #2A2333;
   color: #ffffff;
   cursor: pointer;
-  
+
   &:hover, &:focus {
     background: #806A9C;
   }
-  
+
   &.large {
     padding: 12px 25px;
     font-size: 16px;
   }
-  
+
   &.small {
     padding: 2px 10px;
     font-size: 12px;
     font-weight: normal;
   }
-  
+
   &.in-progress {
     background: #464646;
   }
@@ -122,10 +103,11 @@ input[type=button], input[type=submit], a.button {
 #main-wrapper {
   margin: 0 auto;
   max-width: 1000px;
+  min-width: 620px;
   width: 100%;
-  
+
   #inner-wrapper {
-    margin: 10px;
+    margin: 30px 10px;
   }
 }
 
@@ -142,58 +124,53 @@ section {
 }
 
 header {
-  height: 60px;
-  
+  margin-bottom: 30px;
+
   #logo {
     margin: 0;
     float: left;
-    line-height: 60px;
+    line-height: 40px;
     font-size: 30px;
   }
-  
-  #main-nav {
-    float: left;
-    line-height: 64px;
-    margin-left: 25px;
-    
-    a {
-      margin-right: 10px;
-      font-weight: bold;
-    }
+
+  #description {
+    clear: both;
+    padding: 0px;
+    margin: 0px;
   }
-  
+
   #user-nav {
     float: right;
-    line-height: 64px;
-    
+    margin-top: 19px;
+
     #current-user {
       a {
-        color: #000; 
+        color: #000;
 
         &:hover {
-         color: #806A9C; 
+         color: #806A9C;
         }
 
         &.signout {
-          margin-left: 20px; 
+          margin-left: 20px;
 
           .icon-off {
             line-height: normal;
-          } 
+          }
         }
-      } 
+      }
     }
-    
+
     #sign-in-with-github {
       .icon-github {
         margin-right: 10px;
       }
     }
-    
+
     #current-user-profile-image {
       width: 20px;
       float: left;
-      margin: 21px 8px 0 0;
+      margin-right: 8px;
       @include border-radius(3px);
     }
   }
@@ -203,7 +180,7 @@ header {
   @include border-radius(3px);
   background: #F9DF6A;
   display: none;
-  
+
   &.show-notice {
     display: block;
   }
@@ -212,19 +189,19 @@ header {
 #link-header {
   @include border-radius(3px);
   background: #E8F0F5;
-  
+
   #filter-by-tag {
     display: inline-block;
     line-height: 41px;
-    
-    .select2-container { 
+
+    .select2-container {
       margin-left: 5px;
     }
   }
-  
+
   #contribute-button {
     float: right;
-    margin-top: 5px;
+    margin-top: 3px;
   }
 }
 
@@ -233,7 +210,7 @@ header {
     margin-bottom: 25px;
     padding-left: 50px;
     line-height: 40px;
-    
+
     img {
       position: absolute;
       width: 40px;
@@ -241,58 +218,58 @@ header {
       @include border-radius(3px);
     }
   }
-  
+
   .link-summary {
     margin-bottom: 20px;
     padding-bottom: 20px;
     border-bottom: dashed 1px #CCC;
-    
+
     &:last-child {
-      border-bottom: none; 
+      border-bottom: none;
     }
-    
+
     .favorite {
       float: left;
       margin-right: 10px;
       font-size: 21px;
-      line-height: 21px;  
-      
+      line-height: 21px;
+
       &:hover {
         cursor: pointer;
       }
-      
+
       &:hover, &.is-favorite {
         color: #E9C12D;
       }
     }
-    
+
     .link {
       display: block;
       margin-bottom: 10px;
       line-height: 22px;
     }
-    
+
     .link-details {
       height: 28px;
       margin-left: 26px;
       line-height: 28px;
-      
+
       .counts-and-submitter {
         float: right;
         font-size: 12px;
-        
+
         .counts {
           float: left;
-          
+
           span {
             margin-left: 10px;
           }
         }
-        
+
         .submitter {
           float: left;
           margin-left: 20px;
-          
+
           img {
             width: 20px;
             margin-top: 4px;
@@ -317,11 +294,11 @@ header {
 
 .pagination {
   text-align: center;
-  
+
   .previous_page {
     margin-right: 5px;
   }
-  
+
   .next_page {
     margin-left: 5px;
   }
@@ -331,16 +308,20 @@ header {
   float: right;
   width: 50%;
   padding-top: 0;
-  
+
   h3 {
     margin-top: 0;
   }
-  
+
   ul {
     padding-left: 20px;
-    
+
     li {
       margin-bottom: 10px;
     }
   }
+}
+
+footer {
+  text-align: center;
 }

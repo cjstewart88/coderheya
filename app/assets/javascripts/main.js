@@ -1,12 +1,9 @@
 $(document).ready(function () {
   $('.tooltip').tipsy();
-  
-  $('#about-dialog').dialog({
-    modal: true,
-    autoOpen: false,
-    width: 600,
-    draggable: false,
-    title: 'About'
+
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
   });
-  $('#about-toggle').click(function () { $('#about-dialog').dialog('open'); });
 });
